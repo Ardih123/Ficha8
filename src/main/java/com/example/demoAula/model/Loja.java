@@ -21,9 +21,12 @@ public class Loja {
 	private String nome;
 	private int numeroFuncionarios, area;
 	
-	@ManyToOne
-	@JoinColumn(name="Andar_id", nullable=false)
-	private List<Andar> Andar;
+	/*
+	 * @ManyToOne
+	 * 
+	 * @JoinColumn(name="Andar_id", nullable=false) 
+	 * private List<Andar> Andar;
+	 */
 	
 	public Long getId() {
 		return id;

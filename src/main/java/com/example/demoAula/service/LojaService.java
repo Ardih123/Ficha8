@@ -16,35 +16,35 @@ import com.example.demoAula.repository.LojaRepository;
 @Service
 public class LojaService {
 
-	private final LojaRepository LojaRepository;
+	private final LojaRepository lojaRepository;
 	
 	@Autowired
 	public LojaService(LojaRepository lojaRepository) {
-		LojaRepository = lojaRepository;
+		this.lojaRepository = lojaRepository;
 	}
 
 	public boolean addLoja(Loja aLoja) {
         if (aLoja.getId() == null){
-        	LojaRepository.save(aLoja);
+        	lojaRepository.save(aLoja);
             return true;
         }
         return false;
 	}
 
 	public String addLojaAndar(String aLojaId, String aAndarId) {
-
+		return "";
 	}
 
 	public boolean deleteLojaById(String aId) {
         try {
             Long id_long = parseLong(aId);
 
-            if (id_long == null || id_long == NaN || LojaRepository.findById(id_long).isEmpty()){
+            if (id_long == null || id_long == NaN || lojaRepository.findById(id_long).isEmpty()){
                 return false;
             }
 
-            Loja aLoja = LojaRepository.findById(id_long).get();
-            LojaRepository.delete(aLoja);
+            Loja aLoja = lojaRepository.findById(id_long).get();
+            lojaRepository.delete(aLoja);
 
             return true;
         }catch (Exception e){
@@ -53,19 +53,19 @@ public class LojaService {
 	}
 
 	public boolean updateLoja(Loja aLoja) {
-
+		return false;
 	}
 
 	public List<Loja> getAllLoja() {
 		List<Loja> listaLoja = new ArrayList<>();
 
-		LojaRepository.findAll().forEach(listaLoja::add);
+		lojaRepository.findAll().forEach(listaLoja::add);
 
         return listaLoja;
 	}
 
 	public Optional<Loja> getLojaById(Long aId) {
-		return LojaRepository.findById(aId);
+		return lojaRepository.findById(aId);
 	}
 
 }

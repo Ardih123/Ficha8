@@ -15,35 +15,35 @@ import com.example.demoAula.repository.AndarRepository;
 @Service
 public class AndarService {
 	
-	private final AndarRepository AndarRepository;
+	private final AndarRepository andarRepository;
 
 	@Autowired
 	public AndarService(AndarRepository andarRepository) {
-		AndarRepository = andarRepository;
+		this.andarRepository = andarRepository;
 	}
 
 	public boolean addAndar(Andar aAndar) {
         if (aAndar.getId() == null){
-        	AndarRepository.save(aAndar);
+        	andarRepository.save(aAndar);
             return true;
         }
         return false;
 	}
 
 	public String addAndarCentroComercial(String aAndarId, String aCentroId) {
-
+		return "";
 	}
 
 	public boolean deleteAndarById(String aId) {
         try {
             Long id_long = parseLong(aId);
 
-            if (id_long == null || id_long == NaN || AndarRepository.findById(id_long).isEmpty()){
+            if (id_long == null || id_long == NaN || andarRepository.findById(id_long).isEmpty()){
                 return false;
             }
 
-            Andar aAndar = AndarRepository.findById(id_long).get();
-            AndarRepository.delete(aAndar);
+            Andar aAndar = andarRepository.findById(id_long).get();
+            andarRepository.delete(aAndar);
 
             return true;
         }catch (Exception e){
@@ -54,7 +54,7 @@ public class AndarService {
 	public List<Andar> getAllAndar() {
 		List<Andar> listaAndar = new ArrayList<>();
 
-		AndarRepository.findAll().forEach(listaAndar::add);
+		andarRepository.findAll().forEach(listaAndar::add);
 
         return listaAndar;
 	}

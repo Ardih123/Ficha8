@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demoAula.dto.SimpleResponse;
@@ -21,11 +21,11 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 @RestController
 public class CentroComercialController {
 
-	private final CentroComercialService CentroComercialService;
+	private final CentroComercialService centroComercialService;
 
 	@Autowired
 	public CentroComercialController(CentroComercialService centroComercialService) {
-		CentroComercialService = centroComercialService;
+		this.centroComercialService = centroComercialService;
 	}
 	
 	/*
@@ -35,8 +35,9 @@ public class CentroComercialController {
 	 * /getCentroComercialById/{id}
 	 */
 	
-	@PutMapping("/addCentroComercial")
+	@PostMapping("/addCentroComercial")
 	public ResponseEntity<SimpleResponse> addCentroComercial(@RequestBody CentroComercial aCentroComercial) {
+		System.out.println(aCentroComercial);
 		SimpleResponseCentroComercial srCC = new SimpleResponseCentroComercial();
 		
         if (aCentroComercial.getNumeroMaxAndar() <= 0){
@@ -58,9 +59,9 @@ public class CentroComercialController {
                     .body(srCC);
 		}
         
-        if (CentroComercialService.addCentroComercial(aCentroComercial)){
+        if (centroComercialService.addCentroComercial(aCentroComercial)){
         	srCC.setAsSuccess("Centro Comercial Inserido Com Sucesso");
-        	srCC.setListaCentroComercial(CentroComercialService.getAllCentroComercial());
+        	srCC.setListaCentroComercial(centroComercialService.getAllCentroComercial());
 
         }else{
         	srCC.setAsError("Erro ao inserir o Centro Comercial");
@@ -75,7 +76,7 @@ public class CentroComercialController {
 	public SimpleResponse deleteCentroComercialById(@PathVariable String aId) {
         SimpleResponse sr = new SimpleResponse();
 
-        if (CentroComercialService.deleteCentroComercialById(aId)){
+        if (centroComercialService.deleteCentroComercialById(aId)){
             sr.setAsSuccess("Centro Comercial Removido Com Sucesso");
         }
         else{
@@ -87,16 +88,17 @@ public class CentroComercialController {
 	
 	@GetMapping("/getAllCentroComercial")
 	public List<CentroComercial> getAllCentroComercial() {
-		return CentroComercialService.getAllCentroComercial();
+		return centroComercialService.getAllCentroComercial();
 	}
 	
 	@GetMapping("/getCentroComercialById/{id}")
-	public List<CentroComercial> getCentroComercialById(@PathVariable String aId) {
+	public CentroComercial getCentroComercialById(@PathVariable String aId) {
 		if(aId == null || aId.isBlank()) {
-			//Long idCentroComercial = Long.valueOf(aId);
+			
 			
 		}
-		return CentroComercialService.getCentroComercialById(aId);
+		Long idCentroComercial = Long.valueOf(aId);
+		return centroComercialService.getCentroComercialById(idCentroComercial).get();
 	}
 	
 }

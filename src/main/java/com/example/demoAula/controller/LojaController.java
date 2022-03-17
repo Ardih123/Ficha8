@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,11 +22,11 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 @RestController
 public class LojaController {
 	
-	private final LojaService LojaService;
+	private final LojaService lojaService;
 
 	@Autowired
 	public LojaController(LojaService lojaService) {
-		LojaService = lojaService;
+		this.lojaService = lojaService;
 	}
 	
 	/*
@@ -37,7 +38,7 @@ public class LojaController {
 	 * /getLojaById/{id}
 	 */
 
-	@PutMapping("/addLoja")
+	@PostMapping("/addLoja")
 	public ResponseEntity<SimpleResponse> addLoja(@RequestBody Loja aLoja ) {
 		SimpleResponseLoja srA = new SimpleResponseLoja();
 		
@@ -60,9 +61,9 @@ public class LojaController {
                     .body(srA);
 		}
         
-        if (LojaService.addLoja(aLoja)){
+        if (lojaService.addLoja(aLoja)){
         	srA.setAsSuccess("Loja Inserida Com Sucesso");
-        	srA.setListaLoja(LojaService.getAllLoja());
+        	srA.setListaLoja(lojaService.getAllLoja());
 
         }else{
         	srA.setAsError("Erro ao inserir a Loja");
@@ -73,19 +74,19 @@ public class LojaController {
                 .body(srA);
 	}
 	
-	@PutMapping("/addLoja/{loja_id}/Andar/{andar_id}")
+	@PostMapping("/addLoja/{loja_id}/Andar/{andar_id}")
 	public String addLojaAndar(@PathVariable String aLojaId, @PathVariable String aAndarId) {
 		if(aLojaId == null || aLojaId.isBlank() || aAndarId == null || aAndarId.isBlank()) {
 			
 		}
-		return LojaService.addLojaAndar(aLojaId, aAndarId);
+		return lojaService.addLojaAndar(aLojaId, aAndarId);
 	}
 	
 	@DeleteMapping("/deleteLoja/{id}")
 	public SimpleResponse deleteLojaById(@PathVariable String aId) {
 		SimpleResponse sr = new SimpleResponse();
 
-        if (LojaService.deleteLojaById(aId)){
+        if (lojaService.deleteLojaById(aId)){
             sr.setAsSuccess("Loja Removida Com Sucesso");
         }
         else{
@@ -112,7 +113,7 @@ public class LojaController {
             return sr;
         }
         
-        boolean suc = LojaService.updateLoja(aLoja);
+        boolean suc = lojaService.updateLoja(aLoja);
 
         if (suc){
             sr.setAsSuccess("Loja atualizada com sucesso");
@@ -125,15 +126,16 @@ public class LojaController {
 	
 	@GetMapping("/getAllLoja")
 	public List<Loja> getAllLoja() {
-		return LojaService.getAllLoja();
+		return lojaService.getAllLoja();
 	}
 	
 	@GetMapping("/getLojaById/{id}")
-	public List<Loja> getLojaById(@PathVariable String aId) {
+	public Loja getLojaById(@PathVariable String aId) {
 		if(aId == null || aId.isBlank()) {
-			//Long idLoja = Long.valueOf(aId);
+			
 			
 		}
-		return LojaService.getLojaById(aId);
+		Long idLoja = Long.valueOf(aId);
+		return lojaService.getLojaById(idLoja).get();
 	}
 }
