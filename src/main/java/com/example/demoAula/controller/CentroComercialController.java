@@ -9,14 +9,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demoAula.dto.SimpleResponse;
 import com.example.demoAula.dto.SimpleResponseCentroComercial;
 import com.example.demoAula.model.CentroComercial;
 import com.example.demoAula.service.CentroComercialService;
-
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
 public class CentroComercialController {
@@ -38,6 +37,7 @@ public class CentroComercialController {
 	@PostMapping("/addCentroComercial")
 	public ResponseEntity<SimpleResponse> addCentroComercial(@RequestBody CentroComercial aCentroComercial) {
 		System.out.println(aCentroComercial);
+		
 		SimpleResponseCentroComercial srCC = new SimpleResponseCentroComercial();
 		
         if (aCentroComercial.getNumeroMaxAndar() <= 0){
