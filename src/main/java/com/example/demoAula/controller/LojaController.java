@@ -73,7 +73,7 @@ public class LojaController {
                 .body(srA);
 	}
 	
-	@PostMapping("/addLoja/{loja_id}/Andar/{andar_id}")
+	@PostMapping("/addLoja/{aLojaId}/Andar/{aAndarId}")
 	public String addLojaAndar(@PathVariable String aLojaId, @PathVariable String aAndarId) {
 		if(aLojaId == null || aLojaId.isBlank() || aAndarId == null || aAndarId.isBlank()) {
 			
@@ -81,7 +81,7 @@ public class LojaController {
 		return lojaService.addLojaAndar(aLojaId, aAndarId);
 	}
 	
-	@DeleteMapping("/deleteLoja/{id}")
+	@DeleteMapping("/deleteLoja/{aId}")
 	public SimpleResponse deleteLojaById(@PathVariable String aId) {
 		SimpleResponse sr = new SimpleResponse();
 
@@ -128,7 +128,7 @@ public class LojaController {
 		return lojaService.getAllLoja();
 	}
 	
-	@GetMapping("/getLojaById/{id}")
+	@GetMapping("/getLojaById/{aId}")
 	public Loja getLojaById(@PathVariable String aId) {
 		if(aId == null || aId.isBlank()) {
 			

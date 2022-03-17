@@ -65,7 +65,7 @@ public class AndarController {
 		
 	}
 	
-	@PostMapping("/addAndar/{andar_id}/centroComercial/{centro_comercial_id}")
+	@PostMapping("/addAndar/{aAndarId}/centroComercial/{aCentroId}")
 	public String addAndarCentroComercial(@PathVariable String aAndarId, @PathVariable String aCentroId) {
 		if(aAndarId == null || aAndarId.isBlank() || aCentroId == null || aCentroId.isBlank()) {
 			
@@ -73,7 +73,7 @@ public class AndarController {
 		return andarService.addAndarCentroComercial(aAndarId, aCentroId);
 	}
 	
-	@DeleteMapping("/deleteAndar/{id}")
+	@DeleteMapping("/deleteAndar/{aId}")
 	public SimpleResponse deleteAndarById(@PathVariable String aId) {
 		SimpleResponse sr = new SimpleResponse();
 

@@ -1,8 +1,6 @@
 package com.example.demoAula.service;
 
 import static java.lang.Float.NaN;
-import static java.lang.Long.parseLong;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +31,7 @@ public class CentroComercialService {
 
 	public boolean deleteCentroComercialById(String aId) {
         try {
-            Long id_long = parseLong(aId);
+            Long id_long = Long.valueOf(aId);
 
             if (id_long == null || id_long == NaN || centroComercialRepository.findById(id_long).isEmpty()){
                 return false;

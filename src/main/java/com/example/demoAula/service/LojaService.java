@@ -53,7 +53,25 @@ public class LojaService {
 	}
 
 	public boolean updateLoja(Loja aLoja) {
-		return false;
+        if (aLoja.getId() == null || lojaRepository.findById(aLoja.getId()).isEmpty()){
+            return false;
+        }
+
+        Loja loja = lojaRepository.findById(aLoja.getId()).get();
+
+        if (loja.getNome() != null || !loja.getNome().isBlank()){
+        	loja.setNome(aLoja.getNome());
+        }
+        if (aLoja.getArea()>0){
+        	loja.setArea(aLoja.getArea());
+        }
+        if (aLoja.getNumeroFuncionarios()>0){
+        	loja.setNumeroFuncionarios(aLoja.getNumeroFuncionarios());
+        }
+
+        lojaRepository.save(loja);
+
+        return true;
 	}
 
 	public List<Loja> getAllLoja() {

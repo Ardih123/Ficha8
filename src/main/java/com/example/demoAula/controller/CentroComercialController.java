@@ -72,7 +72,7 @@ public class CentroComercialController {
                 .body(srCC);
 	}
 	
-	@DeleteMapping("/deleteCentroComercial/{id}")
+	@DeleteMapping("/deleteCentroComercial/{aId}")
 	public SimpleResponse deleteCentroComercialById(@PathVariable String aId) {
         SimpleResponse sr = new SimpleResponse();
 
@@ -91,12 +91,8 @@ public class CentroComercialController {
 		return centroComercialService.getAllCentroComercial();
 	}
 	
-	@GetMapping("/getCentroComercialById/{id}")
+	@GetMapping("/getCentroComercialById/{aId}")
 	public CentroComercial getCentroComercialById(@PathVariable String aId) {
-		if(aId == null || aId.isBlank()) {
-			
-			
-		}
 		Long idCentroComercial = Long.valueOf(aId);
 		return centroComercialService.getCentroComercialById(idCentroComercial).get();
 	}
