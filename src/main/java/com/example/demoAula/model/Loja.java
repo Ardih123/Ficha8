@@ -1,9 +1,13 @@
 package com.example.demoAula.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,6 +20,10 @@ public class Loja {
     
 	private String nome;
 	private int numeroFuncionarios, area;
+	
+	@ManyToOne
+	@JoinColumn(name="Andar_id", nullable=false)
+	private List<Andar> Andar;
 	
 	public Long getId() {
 		return id;

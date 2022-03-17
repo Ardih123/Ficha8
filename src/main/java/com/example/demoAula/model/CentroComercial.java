@@ -1,9 +1,12 @@
 package com.example.demoAula.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -16,6 +19,9 @@ public class CentroComercial {
     
 	private String nome, morada;
 	private int numeroMaxAndar;
+	
+	@OneToMany(mappedBy="CentroComercial")
+	private List<Andar> Andar;
 	
 	public Long getId() {
 		return id;
