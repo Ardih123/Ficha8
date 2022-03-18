@@ -111,6 +111,10 @@ public class LojaController {
             sr.setAsError("Area invalida");
             return sr;
         }
+        if (aLoja.getNumeroFuncionarios() <= 0){
+            sr.setAsError("Numero Funcionarios invalida");
+            return sr;
+        }
         
         boolean suc = lojaService.updateLoja(aLoja);
 
